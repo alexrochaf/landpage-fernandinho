@@ -1,25 +1,25 @@
-// document.getElementById('upload').addEventListener('change', function(event) {
-//     const file = event.target.files[0];
-//     if (file) {
-//         const reader = new FileReader();
-//         reader.onload = function(e) {
-//             const img = document.createElement('img');
-//             img.src = e.target.result;
-//             const frameContainer = document.createElement('div');
-//             frameContainer.className = 'frame-container';
-//             frameContainer.appendChild(img);
+document.getElementById('upload').addEventListener('change', function(event) {
+    const file = event.target.files[0];
+    if (file) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            const img = document.createElement('img');
+            img.src = e.target.result;
+            const frameContainer = document.createElement('div');
+            frameContainer.className = 'frame-container';
+            frameContainer.appendChild(img);
 
-//             const frame = document.createElement('img');
-//             frame.src = 'frame.png'; // Caminho para a imagem da moldura
-//             frame.className = 'frame';
-//             frameContainer.appendChild(frame);
+            const frame = document.createElement('img');
+            frame.src = 'frame.png'; // Caminho para a imagem da moldura
+            frame.className = 'frame';
+            frameContainer.appendChild(frame);
 
-//             document.getElementById('photo-container').innerHTML = '';
-//             document.getElementById('photo-container').appendChild(frameContainer);
-//         };
-//         reader.readAsDataURL(file);
-//     }
-// });
+            document.getElementById('photo-container').innerHTML = '';
+            document.getElementById('photo-container').appendChild(frameContainer);
+        };
+        reader.readAsDataURL(file);
+    }
+});
 
 const fileInput = document.getElementById('upload');
 
