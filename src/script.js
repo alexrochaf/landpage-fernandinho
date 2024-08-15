@@ -1,58 +1,36 @@
-document.getElementById('upload').addEventListener('change', function(event) {
-    const file = event.target.files[0];
-    if (file) {
-        const reader = new FileReader();
-        reader.onload = function(e) {
-            const img = document.createElement('img');
-            img.src = e.target.result;
-            const frameContainer = document.createElement('div');
-            frameContainer.className = 'frame-container';
-            frameContainer.appendChild(img);
-
-            const frame = document.createElement('img');
-            frame.src = 'frame.png'; // Caminho para a imagem da moldura
-            frame.className = 'frame';
-            frameContainer.appendChild(frame);
-
-            document.getElementById('photo-container').innerHTML = '';
-            document.getElementById('photo-container').appendChild(frameContainer);
-        };
-        reader.readAsDataURL(file);
-    }
-});
-
 const fileInput = document.getElementById('upload');
 
 fileInput.addEventListener('change', (event) => {
-    const file = event.target.files[0];
-    const reader = new FileReader();
+  const file = event.target.files[0];
+  const reader = new FileReader();
 
-    reader.onload = () => {
-        const photoImage = new Image();
-        photoImage.crossOrigin = 'anonymous';
-        photoImage.src = reader.result;
-        photoImage.onload = () => {
-            const frameImage = new Image();
-            frameImage.crossOrigin = 'local';
-            frameImage.src = 'frame.png'; // Path to the frame image
-            frameImage.onload = () => {
-                const mergedImageUrl = mergeImagesWithFrame(photoImage, frameImage);
-                createDownloadButton(mergedImageUrl);
-            };
-        };
+  reader.onload = () => {
+    const photoImage = new Image();
+    photoImage.crossOrigin = 'anonymous';
+    photoImage.src = reader.result;
+    photoImage.onload = () => {
+      const frameImage = new Image();
+      frameImage.crossOrigin = 'local';
+      frameImage.src = 'frame.png'; // Path to the frame image
+      frameImage.onload = () => {
+        const mergedImageUrl = mergeImagesWithFrame(photoImage, frameImage);
+        createDownloadButton(mergedImageUrl);
+      };
     };
+  };
 
-    reader.readAsDataURL(file);
+  reader.readAsDataURL(file);
 });
 
 function createDownloadButton(imageUrl) {
-    const downloadContainer = document.getElementById('download-container');
-    const downloadLink = document.createElement('a');
-    downloadLink.type = 'button';
-    downloadLink.href = imageUrl;
-    downloadLink.download = 'merged-image.jpg'; // Set the desired file name
-    downloadLink.innerHTML = 'Download Merged Image';
-    downloadContainer.appendChild(downloadLink);
+  const downloadContainer = document.getElementById('download-container');
+  const downloadLink = document.createElement('a');
+  downloadLink.type = 'button';
+  downloadLink.className = 'btn btn-primary';
+  downloadLink.href = imageUrl;
+  downloadLink.download = 'merged-image.jpg'; // Set the desired file name
+  downloadLink.innerHTML = 'Download Merged Image';
+  downloadContainer.appendChild(downloadLink);
 }
 
 function mergeImagesWithFrame(photoImage, frameImage) {
