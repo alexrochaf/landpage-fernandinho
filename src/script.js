@@ -34,7 +34,7 @@ function createDownloadButton(imageUrl) {
   downloadLink.href = imageUrl;
   const guid = generateGuid();
   downloadLink.download = `fernandinho-${guid}.jpg`; // Set the desired file name
-  downloadLink.innerHTML = 'Download Merged Image';
+  downloadLink.innerHTML = 'Baixar Foto';
   downloadContainer.appendChild(downloadLink);
 }
 
