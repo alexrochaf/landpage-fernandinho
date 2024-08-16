@@ -15,10 +15,11 @@ fileInput.addEventListener('change', (event) => {
       frameImage.onload = () => {
         const mergedImageUrl = mergeImagesWithFrame(photoImage, frameImage);
         //clear button download
-        const downloadContainer = document.getElementById('download-container');
-        downloadContainer.innerHTML = '';
+        //const downloadContainer = document.getElementById('download-container');
+        //downloadContainer.innerHTML = '';
         //create button download
         createDownloadButton(mergedImageUrl);
+        downloadMergedImage(mergedImageUrl);
       };
     };
   };
@@ -36,6 +37,26 @@ function createDownloadButton(imageUrl) {
   downloadLink.download = `fernandinho-${guid}.jpg`; // Set the desired file name
   downloadLink.innerHTML = 'Baixar Foto';
   downloadContainer.appendChild(downloadLink);
+}
+
+function downloadMergedImage(imageUrl) {
+  const canvas = document.createElement('canvas');
+  const ctx = canvas.getContext('2d');
+  const img = new Image();
+  img.crossOrigin = 'anonymous';
+  img.src = imageUrl;
+  img.onload = () => {
+    canvas.width = img.width;
+    canvas.height = img.height;
+    ctx.drawImage(img, 0, 0);
+    canvas.toBlob(blob => {
+      const downloadLink = document.createElement('a');
+      downloadLink.href = URL.createObjectURL(blob);
+      const guid = generateGuid();
+      downloadLink.download = `fernandinho-${guid}.jpg`;
+      downloadLink.click();
+    }, 'image/jpeg');
+  };
 }
 
 function mergeImagesWithFrame(photoImage, frameImage) {
