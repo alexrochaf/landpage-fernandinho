@@ -14,6 +14,10 @@ fileInput.addEventListener('change', (event) => {
       frameImage.src = 'frame.png'; // Path to the frame image
       frameImage.onload = () => {
         const mergedImageUrl = mergeImagesWithFrame(photoImage, frameImage);
+        //clear button download
+        const downloadContainer = document.getElementById('download-container');
+        downloadContainer.innerHTML = '';
+        //create button download
         createDownloadButton(mergedImageUrl);
       };
     };
@@ -28,7 +32,8 @@ function createDownloadButton(imageUrl) {
   downloadLink.type = 'button';
   downloadLink.className = 'btn btn-primary';
   downloadLink.href = imageUrl;
-  downloadLink.download = 'merged-image.jpg'; // Set the desired file name
+  const guid = generateGuid();
+  downloadLink.download = `fernandinho-${guid}.jpg`; // Set the desired file name
   downloadLink.innerHTML = 'Download Merged Image';
   downloadContainer.appendChild(downloadLink);
 }
@@ -72,4 +77,11 @@ function mergeImagesWithFrame(photoImage, frameImage) {
   ctx.drawImage(frameImage, 0, 0);
 
   return canvas.toDataURL('image/jpeg');
+}
+
+function generateGuid() {
+  return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
+    var r = Math.random() * 16 | 0, v = c === 'x' ? r : (r & 0x3 | 0x8);
+    return v.toString(16);
+  });
 }
